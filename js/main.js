@@ -1,92 +1,135 @@
-window.addEventListener('load', init);
+window.addEventListener("load", init);
 
 // Globals
 
 // Available Levels
 const levels = {
-    easy: 5,
-    medium: 3,
-    hard: 1
+    easy: 10,
+    medium: 5,
+    hard: 3,
 };
 
-// To change level
-const currentLevel = levels.medium;
+// DOM Elements
+const wordInput = document.querySelector("#word-input");
+const currentWord = document.querySelector("#current-word");
+const scoreDisplay = document.querySelector("#score");
+const timeDisplay = document.querySelector("#time");
+const message = document.querySelector("#message");
+const seconds = document.querySelector("#seconds");
+const difficulty = document.querySelector("#difficulty");
+const button = document.querySelector("#difficulty-button");
+
+//get difficulty
+let diff = difficulty.value;
+let diffVal = 10;
+if (diff == "easy") {
+    diffVal = levels.easy;
+} else if (diff == "medium") {
+    diffVal = levels.medium;
+} else {
+    diffVal = levels.hard;
+}
+
+//Difficulty level setter
+button.addEventListener("click", reload);
+
+function reload() {
+    window.location.reload();
+}
+
+const currentLevel = diffVal;
 
 let time = currentLevel;
 let score = 0;
 let isPlaying;
 
-// DOM Elements
-const wordInput = document.querySelector('#word-input');
-const currentWord = document.querySelector('#current-word');
-const scoreDisplay = document.querySelector('#score');
-const timeDisplay = document.querySelector('#time');
-const message = document.querySelector('#message');
-const seconds = document.querySelector('#seconds');
-
 const words = [
-    'apple',
-    'banana',
-    'torch',
-    'march',
-    'typesrcipt',
-    'monster',
-    'continue',
-    'anime',
-    'word',
-    'dictionary',
-    'mom',
-    'dad',
-    'sibling',
-    'take',
-    'pizza',
-    'sizzler',
-    'come',
-    'enter',
-    'cat',
-    'dog',
-    'annoy',
-    'more',
-    'cake',
-    'meat',
-    'chocolate',
-    'police',
-    'army',
-    'government',
-    'cock',
-    'hen',
-    'ocean',
-    'lake',
-    'lock',
-    'lawyer',
-    'law',
-    'pick',
-    'drop',
-    'hat',
-    'river',
-    'lucky',
-    'statue',
-    'generate',
-    'stubborn',
-    'cocktail',
-    'runaway',
-    'joke',
-    'developer',
-    'establishment',
-    'hero',
-    'javascript',
-    'nutrition',
-    'revolver',
-    'echo',
-    'siblings',
-    'investigate',
-    'horrendous',
-    'symptom',
-    'laughter',
-    'magic',
-    'master',
-    'space',
-    'definition'
+    "apple",
+    "banana",
+    "torch",
+    "march",
+    "typesrcipt",
+    "monster",
+    "continue",
+    "anime",
+    "word",
+    "dictionary",
+    "mom",
+    "dad",
+    "sibling",
+    "take",
+    "pizza",
+    "sizzler",
+    "come",
+    "enter",
+    "cat",
+    "dog",
+    "annoy",
+    "more",
+    "cake",
+    "meat",
+    "chocolate",
+    "police",
+    "army",
+    "government",
+    "cock",
+    "hen",
+    "ocean",
+    "lake",
+    "lock",
+    "lawyer",
+    "law",
+    "pick",
+    "drop",
+    "hat",
+    "river",
+    "lucky",
+    "statue",
+    "generate",
+    "stubborn",
+    "cocktail",
+    "runaway",
+    "joke",
+    "developer",
+    "establishment",
+    "hero",
+    "corn",
+    "maize",
+    "heroin",
+    "heroine",
+    "popcorn",
+    "band",
+    "stupid",
+    "book",
+    "bookcase",
+    "keyboard",
+    "game",
+    "set",
+    "tubelight",
+    "random",
+    "idiot",
+    "bomb",
+    "plumber",
+    "electricity",
+    "computer",
+    "helmet",
+    "knife",
+    "gun",
+    "sword",
+    "chair",
+    "javascript",
+    "nutrition",
+    "revolver",
+    "echo",
+    "siblings",
+    "investigate",
+    "horrendous",
+    "symptom",
+    "laughter",
+    "magic",
+    "master",
+    "space",
+    "definition",
 ];
 
 // Initialize Game
@@ -96,7 +139,7 @@ function init() {
     // Load word from array
     showWord(words);
     // Start matching on word input
-    wordInput.addEventListener('input', startMatch);
+    wordInput.addEventListener("input", startMatch);
     // Call countdown every second
     setInterval(countdown, 1000);
     // Check game status
@@ -109,7 +152,7 @@ function startMatch() {
         isPlaying = true;
         time = currentLevel + 1;
         showWord(words);
-        wordInput.value = '';
+        wordInput.value = "";
         score++;
     }
 
@@ -119,15 +162,16 @@ function startMatch() {
     } else {
         scoreDisplay.innerHTML = score;
     }
+
 }
 
 // Match currentWord to wordInput
 function matchWords() {
     if (wordInput.value === currentWord.innerHTML) {
-        message.innerHTML = 'Correct!!!';
+        message.innerHTML = "Correct!!!";
         return true;
     } else {
-        message.innerHTML = '';
+        message.innerHTML = "";
         return false;
     }
 }
@@ -157,7 +201,7 @@ function countdown() {
 // Check game status
 function checkStatus() {
     if (!isPlaying && time === 0) {
-        message.innerHTML = 'Game Over!!!';
+        message.innerHTML = "Game Over!!!";
         score = -1;
     }
 }
